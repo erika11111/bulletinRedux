@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { selectAllPosts } from "../store/postsSlice";
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
+import ReactionButtons from "./ReactionButtons";
 
 export default function PostsList() {
   //getting all the posts that are defined in the state
@@ -21,6 +22,7 @@ export default function PostsList() {
         <PostAuthor userId={item.userId} />
         <TimeAgo timestamp={item.date} />
       </p>
+      <ReactionButtons item={item} />
     </article>
   ));
   return (

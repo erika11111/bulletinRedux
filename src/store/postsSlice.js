@@ -7,11 +7,11 @@ const initialState = [
     content: "I've heard good things.",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
     reactions: {
-      thumbsUp: 0,
-      wow: 0,
-      heart: 0,
-      rocket: 0,
-      coffee: 0,
+      thumbsUp: 203,
+      wow: 59,
+      heart: 44,
+      rocket: 9,
+      coffee: 23,
     },
   },
   {
@@ -20,11 +20,11 @@ const initialState = [
     content: "The more I say slice, the more I want pizza.",
     date: sub(new Date(), { minutes: 30 }).toISOString(),
     reactions: {
-      thumbsUp: 0,
-      wow: 0,
-      heart: 0,
-      rocket: 0,
-      coffee: 0,
+      thumbsUp: 105,
+      wow: 67,
+      heart: 39,
+      rocket: 102,
+      coffee: 89,
     },
   },
 ];
