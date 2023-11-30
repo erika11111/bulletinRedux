@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
+import { fetchUsers } from "./store/usersSlice.js";
+//fetching users immediately when application loads
+store.dispatch(fetchUsers());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
