@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postAdded } from "../store/postsSlice";
+import { addNewPost } from "../store/postsSlice";
 import { selectAllUsers } from "../store/usersSlice";
 
 export default function AddPostForm() {
@@ -8,6 +8,7 @@ export default function AddPostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
+  const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
   const users = useSelector(selectAllUsers);
 
@@ -15,14 +16,28 @@ export default function AddPostForm() {
   const onContentChanged = (e) => setContent(e.target.value);
   const onAuthorChanged = (e) => setUserId(e.target.value);
 
+  const canSave =
+    [title, content, userId].every(Boolean) && addRequestStatus === "idle";
+
   const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(postAdded(title, content, userId));
-      setTitle("");
-      setContent("");
+    if (canSave) {
+      try {
+        //setting status to pending instead of 'idle'
+        setAddRequestStatus("pending");
+        //dispatching addNewPost thunk we just created
+        dispatch(addNewPost({ title, body: content, userId })).unwrap();
+
+        setTitle("");
+        setContent("");
+        setUserId("");
+      } catch (err) {
+        console.error("Failed to save the post", err);
+      } finally {
+        //setting status back to idle
+        setAddRequestStatus("idle");
+      }
     }
   };
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
   const usersOptions = users.map((item) => (
     <option key={item.id} value={item.id}>
